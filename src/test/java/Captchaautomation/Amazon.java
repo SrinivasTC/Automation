@@ -22,30 +22,30 @@ public class Amazon {
 		WebDriver driver = new ChromeDriver(opt);
 		driver.get("https://www.amazon.in/ref=nav_logo");	
 		driver.manage().window().maximize();
-		
 		driver.findElement(By.xpath("//input[@id='twotabsearchtextbox']")).sendKeys("hp laptop");
-	    driver.findElement(By.xpath("//*[@id=\"nav-search-submit-button\"]")).sendKeys(Keys.ENTER);
-	    driver.findElement( By.xpath("//*[@id=\"search\"]/div[1]/div[1]/div/span[1]/div[1]/div[3]/div/div/div/div/div/div/div/div[2]/div/div/div[1]/h2/a/span")).click();
-	    Set<String> windows = driver.getWindowHandles();
-	    Iterator <String> it = windows.iterator(); // moving to child windows 
-	    String p = it.next();
-	    String c= it.next();
-	    driver.switchTo().window(c);
-	    Thread.sleep(3000);// sleeps for 3 seconds only 
+	    driver.findElement(By.xpath("//*[@id=\"nav-search-submit-button\"]")).click();
 	    
-	    driver.findElement(By.id("add-to-cart-button")).click();
-		driver.findElement(By.xpath("(//*[@id='attach-sidesheet-checkout-button']/span/input)")).click();
-		driver.switchTo().window(p);
+	    String currentWindowHandle = driver.getWindowHandle();
+	    
+	    driver.findElement(By.xpath("//div[@class='s-widget-container s-spacing-small s-widget-container-height-small celwidget slot=MAIN template=SEARCH_RESULTS widgetId=search-results_1']//h2[@class='a-size-mini a-spacing-none a-color-base s-line-clamp-2']//span[1]")).click();
+	    Set<String> windowHandles = driver.getWindowHandles();
+	    
+	  
+	    
+	    for (String windowHandle : windowHandles) {
+	       if (!windowHandle.equals(currentWindowHandle)) {
+	            driver.switchTo().window(windowHandle);
+	            
+	            Thread.sleep(3000);
+	            // perform actions on the new window
+	            driver.findElement(By.xpath("//input[@id='add-to-cart-button']")).click();
+	       
+	          
 		
 		
-}
-	public static void sendkeys(WebDriver driver,String str) {
+		
+	}}}}
 		
 		
 		
-		
-	}
 	
-	}
-
-
